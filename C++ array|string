@@ -1,0 +1,86 @@
+#include <iostream>
+#include <math.h>
+#include <locale>
+#include <windows.h>
+#include <cctype>
+#include <string>
+
+using namespace std;
+
+//int main() {
+//	SetConsoleOutputCP(CP_UTF8);
+//	SetConsoleCP(CP_UTF8);
+//
+//	int sumTopMain = 0;
+//	int sumDownMain = 0;
+//	int sumTopSec = 0;
+//	int sumDownSec = 0;
+//
+//	const int n = 5;
+//	int a[n][n];
+//
+//	for (int i = 0; i < n; i++) {
+//		for (int j = 0; j < n; j++) {
+//			a[i][j] = i + 2;
+//		}
+//	}
+//
+//	cout << "Матрица:\n";
+//
+//	for (int i = 0; i < n; i++) {
+//		for (int j = 0; j < n; j++) {
+//			cout << a[i][j] << "\t";
+//		}
+//		cout << endl;
+//	}
+//
+//	for (int i = 0; i < n; i++) {
+//		for (int j = 0; j < n; j++) {
+//
+//			if (j > i)
+//				sumTopMain += a[i][j];
+//			else if (j < i)
+//				sumDownMain += a[i][j];
+//
+//			if (i + j < n - 1)
+//				sumTopSec += a[i][j];
+//			else if (i + j > n - 1)
+//				sumDownSec += a[i][j];
+//		}
+//	}
+//
+//	cout << "Сумма выше главной диагонали: " << sumTopMain << endl;
+//	cout << "Сумма ниже главной диагонали: " << sumDownMain << endl;
+//	cout << "Сумма выше побочной диагонали: " << sumTopSec << endl;
+//	cout << "Сумма ниже побочной диагонали: " << sumDownSec << endl;
+//
+//	return 0;
+//}
+
+int main(){
+	SetConsoleOutputCP(CP_UTF8);
+	SetConsoleCP(CP_UTF8);
+
+	string text = "asha uhu bela krasa bila anna sasha  aa";
+
+	int count = 0;
+	string word = "";
+
+	for (int i = 0; i <= text.length(); i++) {
+		if (i < text.length() && isalpha(text[i])) {
+			word += tolower(text[i]);
+		}
+		else {
+			if (!word.empty()) {
+				if (word.front() == word.back()) {
+					count++;
+				}
+				word.clear();
+			}
+		}
+	}
+
+	cout << "Количество слов: " << count << endl;
+
+	return 0;
+}
