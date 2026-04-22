@@ -1,0 +1,184 @@
+#include <string>
+#include <windows.h>
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+const int n = 20;
+
+struct trench {
+	string name;
+	string ocean;
+	string type;
+	double depth;
+};
+
+trench* init() {
+	trench* trenches = new trench[n];
+	trenches[0] = { "Mariana", "Pacific", "Island", 10994 };
+	trenches[1] = { "Tonga", "Pacific", "Gutter", 10884 };
+	trenches[2] = { "Philippine", "Pacific ", "Rift ", 10540 };
+	trenches[3] = { "Izu-Ogasawara", "Pacific", "Ridge", 9780 };
+	trenches[4] = { "Kuril-Kamchatka", "Pacific", "Ridge", 10054 };
+	trenches[5] = { "Kermadec", "Pacific", "Island", 10047 };
+	trenches[6] = { "Puerto Rico", "Atlantic", "Rift", 8605 };
+	trenches[7] = { "South Sandwich", "Southern", "Gutter", 8420 };
+	trenches[8] = { "Java", "Indian", "Oceanic", 6450 };
+	trenches[9] = { "Sunda ", "Indian", "Rift", 7450 };
+	trenches[10] = { "South China", "Pacific", "Rift", 5000 };
+	trenches[11] = { "Japan", "Pacific", "Ridge", 8000 };
+	trenches[12] = { "Aleutian", "Arctic", "Ridge", 7500 };
+	trenches[13] = { "Peru-Chile", "Atlantic", "Rift", 8060 };
+	trenches[14] = { "Norwegian", "Atlantic", "Gutter", 8600 };
+	trenches[15] = { "Atacama", "Southern", "Rift", 8605 };
+	trenches[16] = { "Antarctic", "Southern", "Island", 8420 };
+	trenches[17] = { "Yuppy", "Arctic", "Island", 8420 };
+	trenches[18] = { "Eurasian", "Arctic", "Ridge", 5000 };
+	trenches[19] = { "Newfoundland", "Atlantic", "Rift", 7000 };
+	return trenches;
+}
+
+void swal(trench &a, trench &b) {
+	trench temp = a;
+	a = b;
+	b = temp;
+}
+
+void change_depth(trench* trenches) {
+	double newdepth;
+	cout << "Введите глубину, которую хотите изменить: ";
+	cin >> newdepth;
+	for (int i = 0; i < n; i++) {
+		if (trenches[i].depth == newdepth) {
+			cout << "Введите новые данные для впадины " << trenches[i].name << ": " << endl;
+			cout << "Океан: ";
+			cin >> trenches[i].ocean;
+			cout << "Тип: ";
+			cin >> trenches[i].type;
+			cout << "Глубина: ";
+			cin >> trenches[i].depth;
+		};
+	};
+}
+void change_depth_from_file(trench* trenches)
+{
+	SetConsoleOutputCP(CP_UTF8);
+	SetConsoleCP(CP_UTF8);
+	ifstream fin;
+	double depth;
+	int i = 0;
+	string filename;
+	cout << "Введите текстовый файл, из которого которого хотите взять данные о глубине: ";
+	cin >> filename;
+	fin.open(filename);
+	if (fin.is_open()) {
+		while (!fin.eof())
+		{
+			fin >> depth;
+			trenches[i].depth = depth;
+			i++;
+		}
+	}
+	fin.close();
+}
+
+void saveTrenchesBinary(trench* trenches, int size, const string& filename) {
+	ofstream out(filename, ios::binary | ios::out);
+	if (out.is_open()) {
+		out.write((char*)trenches, sizeof(trench) * size);
+		out.close();
+		cout << "Данные успешно сохранены в бинарный файл: " << filename << endl;
+	}
+}
+
+void loadTrenchesBinary(trench* trenches, int size, const string& filename) {
+	ifstream in(filename, ios::binary | ios::in);
+	if (in.is_open()) {
+		in.read((char*)trenches, sizeof(trench) * size);
+		in.close();
+		cout << "Данные успешно загружены из бинарного файла: " << filename << endl;
+	}
+}
+
+void main() {
+	SetConsoleOutputCP(CP_UTF8);
+	SetConsoleCP(CP_UTF8);
+	string Ocean;
+	string binaryFilename;
+	string Oceans[] = { "Pacific", "Atlantic", "Indian", "Southern", "Arctic"};
+	trench oceanarr[n];
+	trench* trenches = init();
+	for (int i = 0; i < n; i++) {
+		cout << trenches[i].name << " " << trenches[i].ocean << " " << trenches[i].type << " " << trenches[i].depth << endl;
+	}
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n - 1; j++) {
+			if (trenches[j].depth < trenches[j + 1].depth) {
+				swal(trenches[j], trenches[j + 1]);
+			}
+		}
+	}
+	cout << "------" << endl;
+	cout << "Максимальная глубина: " << trenches[0].depth << endl;
+	cout << "Минимальная глубина: " << trenches[n - 1].depth << endl;
+	cout << "------" << endl;
+	cout << "Отcортированный массив:" << endl;
+	for (int i = 0; i < n; i++) {
+		cout << trenches[i].name << " " << trenches[i].ocean << " " << trenches[i].type << " " << trenches[i].depth << endl;
+	};
+	cout << "------" << endl;
+	for (int i = 0; i < 5; i++) {
+		int count = 0;
+		cout << "Информация по " << Oceans[i] << " Ocean" << endl;
+		for (int k = 0; k < n; k++) {
+			if (trenches[k].ocean == Oceans[i] && count < 3) {
+				cout << trenches[k].name << " " << trenches[k].ocean << " " << trenches[k].type << " " << trenches[k].depth << endl;
+				count++;
+			}
+		};
+		cout << "-----" << endl;
+	};
+	cout << "------" << endl;
+
+	change_depth(trenches);
+	for (int i = 0; i < n; i++) {
+		cout << trenches[i].name << " " << trenches[i].ocean << " " << trenches[i].type << " " << trenches[i].depth << endl;
+	}
+
+	cout << "------" << endl;
+
+	cout << "Введите на какой какой океан хотите посмотреть (Pacific/Atlantic/Indian/Southern/Arctic): " << endl;
+	cin >> Ocean;
+	cout << "Впадины, расположенные в " << Ocean << ":" << endl;
+
+	for (int i = 0; i < n; i++) {
+		if (trenches[i].ocean == Ocean) {
+			oceanarr[i] = { trenches[i].name, trenches[i].ocean, trenches[i].type, trenches[i].depth };
+		};
+	};
+	for (int i = 0; i < n; i++) {
+		if (oceanarr[i].ocean == Ocean) {
+			std::cout << oceanarr[i].name << " " << oceanarr[i].ocean << " " << oceanarr[i].type << " " << oceanarr[i].depth << std::endl;
+		}
+	};
+
+	cout << "------" << endl;
+
+
+	change_depth_from_file(trenches);
+	for (int i = 0; i < n; i++) {
+		cout << trenches[i].name << " " << trenches[i].ocean << " " << trenches[i].type << " " << trenches[i].depth << endl;
+	}
+	cout << "Введите имя файла для сохранения данных в бинарный файл: ";
+	cin >> binaryFilename;
+	saveTrenchesBinary(trenches, n, binaryFilename);
+
+	loadTrenchesBinary(trenches, n, binaryFilename);
+	cout << "Данные после загрузки из бинарного файла:" << endl;
+	for (int i = 0; i < n; i++) {
+		cout << trenches[i].name << " " << trenches[i].ocean << " " << trenches[i].type << " " << trenches[i].depth << endl;
+	}
+
+	delete[] trenches;
+}
