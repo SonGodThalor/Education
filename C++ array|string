@@ -58,7 +58,7 @@ int main(){
 	SetConsoleOutputCP(CP_UTF8);
 	SetConsoleCP(CP_UTF8);
 
-	string text = "asha uhu bela krasa bila anna sasha  aa";
+	string text = "asha uhu bela krasa bila anna sasha aa 503 505";
 
 	int count = 0;
 	string word = "";
