@@ -1,8 +1,5 @@
 #include <iostream>
-#include <math.h>
-#include <locale>
 #include <windows.h>
-#include <cctype>
 #include <string>
 
 using namespace std;
