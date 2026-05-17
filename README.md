@@ -1,3 +1,29 @@
+Тестирование решения на задание к занятию 6
+
+Формулировка
+
+<img width="655" height="74" alt="image" src="https://github.com/user-attachments/assets/14d2bca3-fdd8-4aca-a74a-9be1360986e4" />
+
+Вывод квадратной матрицы размерности 5
+
+<img width="333" height="199" alt="image" src="https://github.com/user-attachments/assets/e3b112f8-e298-4d8a-90d7-19c5863f5913" />
+
+Вывод квадратной матрицы размерности 7
+
+<img width="483" height="235" alt="image" src="https://github.com/user-attachments/assets/d3e2ad32-4c4c-40bc-810b-4a99ad2af3e5" />
+
+Вывод квадратной матрицы размерности 1
+
+<img width="312" height="128" alt="image" src="https://github.com/user-attachments/assets/2b1f43eb-1084-45d8-943d-eb4d7b416faa" />
+
+Формулировка
+
+<img width="628" height="67" alt="image" src="https://github.com/user-attachments/assets/ee4a1654-7f52-4382-b0c8-deeaad61130a" />
+
+Вывод, на котором видно, что засчитываются только СЛОВА, а цифры не считаются.
+
+<img width="604" height="46" alt="image" src="https://github.com/user-attachments/assets/a99d0130-5a63-4e05-a1ee-ef7024637bbd" />
+
 Тестирование решения на задание к занятию 9-10
 
 Формулировка задачи
